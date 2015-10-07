@@ -35,4 +35,7 @@ class TextInput(Widget):
 
     @value.setter
     def value(self, value):
-        self._impl.set_text(unicode(value))
+        try:
+            self._impl.set_text(unicode(value))
+        except ImportError as python3_strings:  # avoids use of 2to3 on all of toga
+            self._impl.set_text(str(value))
